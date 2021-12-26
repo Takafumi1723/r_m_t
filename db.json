@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "牛乳を買う",
+      "done": true
+    },
+    {
+      "id": 2,
+      "content": "じゃがいもを買う",
+      "done": false
+    },
+    {
+      "id": 3,
+      "content": "卵を買う",
+      "done": false
+    }
+  ]
+}
