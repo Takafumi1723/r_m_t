@@ -6,6 +6,50 @@ import axios from "axios";
 // ローカルに用意したモックサーバのURL
 const mockDataUrl = "http://localhost:3100/todos";
 
+// TodoTitle コンポーネント
+const TodoTitle = ({title, as}) => {
+  if(as === "h1") {
+    return <h1>{title}</h1>;
+  }
+
+  if(as === "h2") {
+    return <h2>{title}</h2>;
+  }
+
+  return <p>{title}</p>;
+};
+
+// TodoItem コンポーネント
+const TodoItem = ({todo}) => {
+  return (
+    <li>
+      {/* TODOコンテンツ */}
+      {todo.content}
+
+      {/* 未実装 */}
+      <button>
+        {todo.done ? "未完了リストへ" : "完了リストへ"}
+      </button>
+
+      {/* 未実装 */}
+      <button>
+        削除
+      </button>
+    </li>
+  )
+}
+
+// TodoList コンポーネント
+const TodoList = ({todoList}) => {
+  return (
+    <ul>
+      {todoList.map((todo) => (
+        <TodoItem todo={todo} key={todo.id}></TodoItem>
+      ))}
+    </ul>
+  )
+} 
+
 const App = () => {
 
   const [todoList, setTodoList] = useState([]);
@@ -40,7 +84,7 @@ const App = () => {
   return (
 
     <>
-      <h1>TODO進捗管理</h1>
+      <TodoTitle title="TODO進捗管理" as="h1"></TodoTitle>
 
       {/* 未実装 */}
       <textarea />
@@ -48,41 +92,11 @@ const App = () => {
       {/* 未実装 */}
       <button>add todo</button>
 
-      <h2>未完了TODOリスト</h2>
-      <ul>
-        {inCompletedList.map((todo) => 
-          <li key={todo.id}>
-            {/* TODOコンテンツ */}
-            {todo.content}
-            {/* 未実装 */}
-            <button>
-              {todo.done ? "未完了リストへ" : "完了リストへ"}
-            </button>
-            {/* 未実装 */}
-            <button>
-              削除
-            </button>
-          </li>
-        )}
-      </ul>
+      <TodoTitle title="未完了TODOリスト" as="h2"></TodoTitle>
+      <TodoList todoList={inCompletedList}></TodoList>
 
-      <h2>完了TODOリスト</h2>
-      <ul>
-        {completedList.map((todo) => 
-          <li key={todo.id}>
-            {/* TODOコンテンツ */}
-            {todo.content}
-            {/* 未実装 */}
-            <button>
-              {todo.done ? "未完了リストへ" : "完了リストへ"}
-            </button>
-            {/* 未実装 */}
-            <button>
-              削除
-            </button>
-          </li>
-        )}
-      </ul>
+      <TodoTitle title="完了TODOリスト" as="h2"></TodoTitle>
+      <TodoList todoList={completedList}></TodoList>
     </>
   );
 }
